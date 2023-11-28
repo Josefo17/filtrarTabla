@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filtrar Tabla</title>
+    <style>
+        /* Estilos CSS (puedes personalizar según tus necesidades) */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        input {
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <form id="filtroForm">
+        <label for="filtroInput">Filtrar por:</label>
+        <input type="text" id="filtroInput" oninput="filtrarTabla()" placeholder="Ingrese un valor...">
+    </form>
+
+    <table id="tablaDatos">
+        <thead>
+            <tr>
+                <th>Columna1</th>
+                <th>Columna2</th>
+                <!-- Agrega más columnas según tus necesidades -->
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Dato1</td>
+                <td>Valor1</td>
+                <!-- Agrega más celdas según tus necesidades -->
+            </tr>
+            <!-- Agrega más filas según tus necesidades -->
+        </tbody>
+    </table>
+
+    <script>
+        // Función para filtrar la tabla
+        function filtrarTabla() {
+            var input, filtro, tabla, filas, celdas, texto;
+            input = document.getElementById("filtroInput");
+            filtro = input.value.toUpperCase();
+            tabla = document.getElementById("tablaDatos");
+            filas = tabla.getElementsByTagName("tr");
+
+            // Recorre todas las filas de la tabla y oculta las que no coincidan con el filtro
+            for (var i = 0; i < filas.length; i++) {
+                celdas = filas[i].getElementsByTagName("td");
+                for (var j = 0; j < celdas.length; j++) {
+                    texto = celdas[j].innerText || celdas[j].textContent;
+                    if (texto.toUpperCase().indexOf(filtro) > -1) {
+                        filas[i].style.display = "";
+                        break; // Sale del bucle al encontrar una coincidencia
+                    } else {
+                        filas[i].style.display = "none"; // Oculta la fila si no hay coincidencias
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
